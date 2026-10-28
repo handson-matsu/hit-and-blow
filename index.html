@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8f3">
+  <title>Hit and Blow（ヒット・アンド・ブロー）</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="access-counter.js" defer></script>
+</head>
+<body>
+  <div id="confetti" class="confetti" aria-hidden="true"></div>
+  <main>
+    <header class="page-header"><span class="eyebrow">数字であそぶ、論理でひらめく。</span><h1>Hit <span>&</span> Blow<span class="subtitle">ヒット・アンド・ブロー</span></h1><p>手がかりをつないで、秘密の数字を見つけよう。</p></header>
+    <section class="card settings" aria-label="ゲーム設定"><div><h2>何桁であそぶ？</h2><div class="digits" role="group" aria-label="桁数を選択"><button data-length="2" aria-pressed="false">2桁</button><button data-length="3" aria-pressed="true">3桁</button><button data-length="4" aria-pressed="false">4桁</button><button data-length="5" aria-pressed="false">5桁</button></div></div><div class="game-actions"><button id="sound-toggle" class="quiet" aria-pressed="false" aria-describedby="sound-status">音 OFF</button><button id="new-game" class="quiet">新しいゲーム</button></div></section>
+    <p id="sound-status" class="sound-status" role="status">音はOFFです。ONにすると効果音が鳴ります。</p>
+    <section id="unique" class="unique" role="status" aria-live="polite" aria-atomic="true" hidden>
+      <h2>答えが1つに絞られました！</h2>
+      <p>これまでのヒントだけで、秘密の数字が分かります。</p>
+      <div id="unique-digits" class="unique-digits" aria-label="秘密の数字は非表示">？？？</div>
+      <p class="unique-prompt">さあ、答えを入力してみよう！</p>
+    </section>
+    <section id="success" class="success" aria-labelledby="success-title" aria-live="polite" hidden><h2 id="success-title">正解！おめでとう！</h2><p id="answer" class="answer"></p><p id="summary"></p><button id="again" class="primary">もう一度遊ぶ</button></section>
+    <div class="play-layout">
+      <section class="card input-card" aria-labelledby="input-title"><div class="section-heading"><h2 id="input-title">秘密の数字を推理しよう</h2><span id="turn" class="tag">1回目</span></div><p class="hint">0〜9を重複なしで。先頭の0もOK！</p>
+        <div id="slots" class="slots" role="group" aria-label="入力した予想"></div>
+        <p id="message" class="message" role="status" aria-live="polite">数字ボタンかキーボードで入力できます。</p>
+        <div id="keypad" class="keypad" aria-label="数字の入力"><button data-number="1">1</button><button data-number="2">2</button><button data-number="3">3</button><button data-number="4">4</button><button data-number="5">5</button><button data-number="6">6</button><button data-number="7">7</button><button data-number="8">8</button><button data-number="9">9</button><button id="clear" class="edit">全消去</button><button data-number="0">0</button><button id="delete" class="edit" aria-label="1文字削除">⌫ <small>1文字削除</small></button></div>
+        <button id="submit" class="primary" disabled>判定する <span aria-hidden="true">→</span></button>
+      </section>
+      <section class="card history-card" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">推理のあしあと</h2><span id="history-count" class="tag">0回</span></div><p id="latest" class="latest" role="status" aria-live="polite">ここに判定結果が並びます。</p><div class="table-scroll" tabindex="0" role="region" aria-label="判定履歴（スクロールできます）"><table><thead><tr><th scope="col">回数</th><th scope="col">予想</th><th scope="col" class="hit">Hit</th><th scope="col" class="blow">Blow</th></tr></thead><tbody id="history"></tbody></table><p id="empty" class="empty">最初の予想を入力してみよう。<br>一歩ずつ、答えに近づこう。</p></div></section>
+    </div>
+    <section class="rules" aria-label="あそび方"><div><strong class="hit">Hit</strong><p>数字も場所も合っている</p></div><div><strong class="blow">Blow</strong><p>数字は合っているけれど場所が違う</p></div><p class="example">例：答えが <b>123</b>、予想が <b>132</b> → <span class="hit">1 Hit</span>・<span class="blow">2 Blow</span></p></section>
+    <footer>回数制限なし。じっくり考えて、ひらめきを楽しもう。</footer>
+  </main>
+</body>
+</html>
